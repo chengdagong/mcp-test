@@ -1,0 +1,3 @@
+Hello, this is a sample file for testing.
+Line 2 of the file.
+Line 3 with some numbers: 12345

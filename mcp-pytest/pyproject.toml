@@ -58,7 +58,9 @@ packages = ["src/mcp_pytest"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "module"
+# Use session scope for both fixtures and tests to ensure consistent event loop
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
 testpaths = ["tests"]
 
 [tool.ruff]
