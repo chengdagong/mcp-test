@@ -1,0 +1,42 @@
+# MCP Server Configuration for Testing
+# This file defines MCP servers that will be started and tested
+
+servers:
+  # Example: UE5 MCP Server
+  - name: ue5-mcp
+    command: python
+    args:
+      - "-m"
+      - "ue5_mcp_server"
+    env:
+      UE5_PROJECT_PATH: "C:/Projects/MyGame"
+      UE5_EDITOR_PATH: "C:/Program Files/Epic Games/UE_5.4/Engine/Binaries/Win64/UnrealEditor.exe"
+    startup_timeout: 60  # UE5 may take longer to start
+    shutdown_timeout: 15
+
+  # Example: Filesystem MCP Server (from Anthropic)
+  - name: filesystem-mcp
+    command: npx
+    args:
+      - "-y"
+      - "@anthropic/mcp-server-filesystem"
+      - "./test_workspace"
+    startup_timeout: 10
+    shutdown_timeout: 5
+
+  # Example: Custom Python MCP Server
+  - name: custom-mcp
+    command: python
+    args:
+      - "servers/custom_server.py"
+    env:
+      DEBUG: "true"
+    cwd: ".."  # Run from parent directory
+    startup_timeout: 30
+
+# Global settings
+default_timeout: 30          # Default timeout for tool calls (seconds)
+log_level: INFO              # Logging level: DEBUG, INFO, WARNING, ERROR
+log_mcp_messages: true       # Log MCP protocol messages
+cleanup_on_failure: true     # Clean up test files even on failure
+parallel_servers: false      # Start servers in parallel (faster but may cause issues)

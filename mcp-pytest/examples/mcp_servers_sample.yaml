@@ -1,0 +1,14 @@
+# Sample MCP Server Configuration for testing mcp-pytest
+# Use this with the sample_server.py
+
+servers:
+  - name: sample
+    command: python
+    args:
+      - "sample_server.py"
+    startup_timeout: 10
+    shutdown_timeout: 5
+
+default_timeout: 30
+log_level: DEBUG
+log_mcp_messages: true
