@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING, AsyncGenerator, Generator, Optional
 
 import pytest
-import pytest_asyncio
 
 from mcp_pytest.cleanup.cleaner import FileCleaner
 from mcp_pytest.cleanup.tracker import FileTracker
@@ -209,7 +208,7 @@ def file_cleaner(file_tracker: FileTracker) -> FileCleaner:
     return FileCleaner(file_tracker)
 
 
-@pytest_asyncio.fixture(scope="module")
+@pytest.fixture(scope="module")
 async def mcp_server_manager(
     mcp_config: MCPTestConfig,
     mcp_logger: MCPLogger,
@@ -235,7 +234,7 @@ async def mcp_server_manager(
     logger.info("Stopped all MCP servers")
 
 
-@pytest_asyncio.fixture(scope="module")
+@pytest.fixture(scope="module")
 async def mcp_client(
     mcp_server_manager: MCPServerManager,
     mcp_config: MCPTestConfig,
@@ -267,7 +266,7 @@ async def mcp_client(
 # =============================================================================
 
 
-@pytest_asyncio.fixture
+@pytest.fixture
 async def tool_caller(
     mcp_client: MCPClientSession,
     mcp_config: MCPTestConfig,
@@ -321,7 +320,7 @@ async def tool_caller(
         file_cleaner.cleanup_test(request.node.name, force=True)
 
 
-@pytest_asyncio.fixture
+@pytest.fixture
 async def mcp_server(
     mcp_server_manager: MCPServerManager,
     request: pytest.FixtureRequest,
